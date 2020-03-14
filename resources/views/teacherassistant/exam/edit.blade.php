@@ -1,0 +1,70 @@
+@extends('layouts.user')
+@section('title')
+@lang('home.exam')
+@endsection
+@section('content')
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <div class="product-payment-inner-st">
+        <div class="product-tab-list tab-pane fade active in" id="description">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="review-content-section">
+                         <form id="add-department" action="/sectionexam/{{$exam->id}}" method="post" class="add-department" novalidate="novalidate">
+                                @csrf
+                                @method('PUT')
+                                <div class="row">
+                                  <div class="form-group" >
+                                      <label>@lang('home.name')</label>
+                                      <input name="name"  class="form-control" placeholder="@lang('home.name')" value="{{$exam->name}}">
+                                  </div>
+                                  <div class="form-group">
+                                      <label>@lang('home.duration')</label>
+                                      <input name="duration" type="number" min="1" class="form-control" placeholder="@lang('home.duration')" value="{{$exam->duration}}">
+                                  </div>
+                                  <div class="form-group">
+                                    <label>@lang('home.gradepass')</label>
+                                    <input name="gradepass" type="number" min="1"  class="form-control" placeholder="@lang('home.gradepass')" value="{{$exam->gradepass}}">
+                                </div>
+                                <div class="form-group">
+                                    <label>@lang('home.start')</label>
+                                    <input name="start" type="date"  class="form-control" placeholder="@lang('home.start')"  value="{{$exam->start}}">
+                                </div>
+                                <div class="form-group">
+                                  <label>@lang('home.end')</label>
+                                  <input name="end" type="date"   class="form-control" placeholder="@lang('home.end')"  value="{{$exam->end}}">
+                                </div>
+                                <div class="form-group">
+                                    <label>@lang('home.subject')</label>
+                                    <select name="subject_id" class="form-control">
+                                        @php
+                                            $subjects=App\subject::whereIN('id',auth()->user()->section->pluck('subject_id'))->get();
+                                        @endphp
+                                        @foreach ($subjects as $subject)
+                                          <option value="{{$subject->id}}" >{{$subject->name}}</option>
+                                        @endforeach
+                                    </select>
+                              </div>
+                              <div class="form-group">
+                                <label>@lang('home.sections')</label>
+                                <select name="sectiongroup[]" class="form-control" multiple>
+
+                                    @foreach (auth()->user()->section as $section)
+                                      <option value="{{$section->id}}" >{{$section->sectiongroup->name}}</option>
+                                    @endforeach
+                                </select>
+                              </div>
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="payment-adress">
+                                            <button type="submit" class="btn btn-primary waves-effect waves-light">@lang('home.save')</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+        </div>
+    </div>
+</div>
+@endsection
