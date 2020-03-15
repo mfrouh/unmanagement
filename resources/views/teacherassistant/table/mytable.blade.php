@@ -30,22 +30,22 @@
                           $day =["sat", "sun","mon", "thus", "wed","thur"];
                           $arry= array();
                           $arrc= array();
-                          $countplace=App\setting::first();
-                       for ($y=1; $y <=$countplace->courseplace ; $y++) {
+                          $place=App\setting::first();
+                       for ($y=1; $y <=$place->sectionplace ; $y++) {
                            $teachertable=App\sectiontable::where('tableid',$y)->where('tid',$j)->first();
                            $arr[$y] = $teachertable[$day[$i-1]];
                          }
                         foreach ($arr as $key => $value) {
-                         $subject=App\section::where('user_id',auth()->user()->id)->where('id',$value)->first();
-
-                         if($subject){
-                         $arry[$subject->user_id]= $subject->id;}
+                         $section=App\section::where('user_id',auth()->user()->id)->where('id',$value)->first();
+                         if($section){
+                         $arry[$section->user_id]= $section->id;}
                         }
                         @endphp
+
                           <td>@foreach ($arry as $key=> $item)
                           @if ( $item)
-                          <?php $subjectid=App\section::where('id',$item)->first();?>
-                          {{$subjectid->name}}<br>{{$subjectid->user->name}}<br>{{$subjectid->sectiongroup->name}}
+                          <?php $sectionid=App\section::where('id',$item)->first();?>
+                           {{$sectionid->name}}<br>{{$sectionid->user->name}}<br>{{$sectionid->sectiongroup->name}}
                           @endif
                           @endforeach
                         </td>
