@@ -199,6 +199,9 @@ return [
 'duration'=>'Duration',
 'exam'=>'Exam',
 'sectioncontents'=>'Section Contents',
+'sectionexams'=>'Section Exams ',
+'mysectionresults'=>'Section Results',
+
 
 
 

@@ -16,22 +16,41 @@
         </tr>
     </thead>
     <tbody>
-            @for ($i = 1; $i <=6; $i++)
+            @for ($i = 0; $i <6; $i++)
          <tr>
             <?php $day =["sat", "sun","mon", "thus", "wed","thur"];?>
-            <th class="text-center">{{$day[$i-1]}}</th>
-              @php
-                 $table=App\table::where('studentclass_id',auth()->user()->student_details->studentclass_id)->get($day[$i-1]);
-                 $name=__('home.nametr');
-              @endphp
-              @foreach ($table as $row)
-                @if($row[$day[$i-1]]!=null)
-                @php $subject=App\subject::find($row[$day[$i-1]]);@endphp
-                 <td>{{$subject->$name}}</td>
-                @else
-                <td></td>
-                @endif
-              @endforeach
+            <th class="text-center">{{$day[$i]}}</th>
+
+                @for ($j = 1; $j <= 5; $j++)
+                 @php
+                 $y=$day[$i];
+                 $tables=App\subjecttable::where('tid',$j)->get($y);
+                 $sectiontables=App\sectiontable::where('tid',$j)->get($y);
+                 @endphp
+                <td>
+                @foreach (auth()->user()->group->subject as $subject)
+                   @if(in_array($subject->id,$tables->pluck($y)->toarray()))
+                   {{$subject->name}}
+                   @endif
+                @endforeach
+                @foreach (auth()->user()->sectiongroup->section as $section)
+                   @if(in_array($section->id,$sectiontables->pluck($y)->toarray()))
+                   {{$section->name}}
+                   @endif
+                @endforeach
+                </td>
+                @endfor
+                {{-- @if(auth()->user()->sectiongroup->section->pluck('id')->toarray())
+                 <td> {{ $sectiontables->pluck($y)->toarray()}}</td>
+                 @else
+                 </td> </td>
+                 @endif --}}
+
+                 {{-- @foreach (auth()->user()->group->subject as $subject)
+                 {{ dd())}}
+                   @if (in_array($subject->id,$tables->pluck($y)->toarray()))
+                   @endif
+                 @endforeach --}}
          </tr>
          @endfor
     </tbody>

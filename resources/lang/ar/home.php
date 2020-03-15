@@ -201,7 +201,8 @@ return [
 'duration'=>'المدة',
 'exam'=>'الامتحان',
 'sectioncontents'=>'منشورات السكاشن',
-
+'sectionexams'=>'امتحانات السكاشن',
+'mysectionresults'=>'نتائج السكاشن',
 ];
 
 

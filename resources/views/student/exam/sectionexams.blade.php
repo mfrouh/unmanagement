@@ -12,8 +12,9 @@
         foreach (auth()->user()->group->subject as $key => $value) {
            $mysubject[]=$value->id;
         }
-        $exams=App\exam::whereIn('subject_id',$mysubject)->where('sectiongroup',null)->orderby('id','desc')->get();
-       @endphp
+        $sectionexam=auth()->user()->sectiongroup_id;
+        $exams=App\exam::whereIn('subject_id',$mysubject)->whereJsonContains('sectiongroup',"$sectionexam")->orderby('id','desc')->get();
+      @endphp
     <div class="row text-center">
         <ul id="myTabedu1" class="tab-review-design">
             <li class="active"><a href="#activeexam">@lang('home.exams')</a></li>

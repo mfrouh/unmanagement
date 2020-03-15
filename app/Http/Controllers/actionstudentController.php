@@ -37,7 +37,7 @@ class actionstudentController extends Controller
            && $studentresultexamcount==0
            && $exam->start <=now()
            && $exam->end >=now()
-           && $exam->subject->studentclass_id==auth()->user()->student_details->studentclass_id
+           && in_array($exam->subject->id,auth()->user()->group->subject->pluck('id')->toarray())
            )
            {
            return view('student.exam.doexam')->with('questions',$questions);
@@ -49,7 +49,7 @@ class actionstudentController extends Controller
             $chart = new UserChart;
             $chart->labels(['CorrectAnswer', 'WrongAnswer','NotAnswer']);
             $chart->dataset('My dataset', 'pie', [count(json_decode($studentresultexam1->correct,true)),count(json_decode($studentresultexam1->wrong,true)),count(json_decode($studentresultexam1->notanswer,true))])->backgroundColor(['green','red','blue']);
-            $chart->title($studentresultexam1->exam->name, 14,'#111',true," sans-serif")	;
+            $chart->title($studentresultexam1->exam->name, 14,'#111'," sans-serif")	;
             $chart->displayAxes(false);
            return view('student.exam.result')->with('studentresultexam',$studentresultexam)->with('chart',$chart);
         }
@@ -59,7 +59,7 @@ class actionstudentController extends Controller
             return abort('403','exam is disactive');
         }
 
-        elseif(count($questions)>0 &&  $studentresultexamcount==0 && $exam->subject->studentclass_id!=auth()->user()->student_details->studentclass_id )
+        elseif(count($questions)>0 &&  $studentresultexamcount==0 && in_array($exam->subject->id,auth()->user()->group->subject->pluck('id')->toarray()) )
         {
             return abort('403','Not for you');
         }
@@ -136,7 +136,7 @@ class actionstudentController extends Controller
         $chart = new UserChart;
         $chart->labels(['CorrectAnswer', 'WrongAnswer','NotAnswer']);
         $chart->dataset('My dataset', 'pie', [count(json_decode($studentresultexam1->correct,true)),count(json_decode($studentresultexam1->wrong,true)),count(json_decode($studentresultexam1->notanswer,true))])->backgroundColor(['green','red','blue']);
-        $chart->title($studentresultexam1->exam->name, 14,  '#111',true," sans-serif")	;
+        $chart->title($studentresultexam1->exam->name, 14,  '#111'," sans-serif")	;
         $chart->displayAxes(false);
        return view('student.exam.result')->with('studentresultexam',$studentresultexam1)->with('chart',$chart);
     }
@@ -144,9 +144,17 @@ class actionstudentController extends Controller
     {
        return view('student.exam.results');
     }
+    public function sectionexams()
+    {
+       return view('student.exam.sectionresults');
+    }
     public function myexams()
     {
        return view('student.exam.exams');
+    }
+    public function mysectionexams()
+    {
+       return view('student.exam.sectionexams');
     }
     public function mytable()
     {
@@ -255,11 +263,22 @@ class actionstudentController extends Controller
     public function mysubjectcontent($id)
     {
        $arr=array();
-      foreach (auth()->user()->student_details->studentclass->subject as $key => $value) {
-           $arr[]=$value->id;
+      foreach (auth()->user()->group->subject as $key => $subject) {
+           $arr[]=$subject->id;
         }
       if (in_array($id,$arr)) {
         return view('student.content.mysubjectcontent',compact('id'));
+      }
+      return abort('404');
+    }
+    public function mysectioncontent($id)
+    {
+       $arr=array();
+      foreach (auth()->user()->group->subject as $key => $subject) {
+           $arr[]=$subject->id;
+        }
+      if (in_array($id,$arr)) {
+        return view('student.content.mysectioncontent',compact('id'));
       }
       return abort('404');
     }

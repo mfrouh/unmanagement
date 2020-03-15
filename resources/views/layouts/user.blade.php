@@ -190,8 +190,14 @@
                             <a title="@lang('home.exams')" href="/exams" aria-expanded="false"> @lang('home.exams')</a>
                         </li>
                         <li>
+                            <a title="@lang('home.sectionexams')" href="/sectionexams" aria-expanded="false"> @lang('home.sectionexams')</a>
+                        </li>
+                        <li>
                              <a title="@lang('home.myresults')" href="/results" aria-expanded="false"> @lang('home.myresults')</a>
                         </li>
+                        <li>
+                            <a title="@lang('home.mysectionresults')" href="/sectionresults" aria-expanded="false"> @lang('home.mysectionresults')</a>
+                       </li>
                         <li>
                              <a title="@lang('home.mytable')" href="/mytable" aria-expanded="false"> @lang('home.mytable')</a>
 
@@ -201,13 +207,20 @@
                                        <span class="mini-click-non">@lang('home.contents')</span>
                                     </a>
                                 <ul class="submenu-angle collapse" aria-expanded="true" style="height: 0px;">
-                                    @php
-                                      $name=__('home.nametr');
-                                    @endphp
-                                    @foreach (auth()->user()->student_details->studentclass->subject as $item)
-                                      <li style="text-align: center;"><a title="" href="/mysubjectcontent/{{$item->id}}"><span class="mini-sub-pro">{{$item->$name}}</span></a></li>
+                                    @foreach (auth()->user()->group->subject as $subject)
+                                        <li style="text-align: center;"><a title="" href="/mysubjectcontent/{{$subject->id}}"><span class="mini-sub-pro">{{$subject->name}}</span></a></li>
                                     @endforeach
-                                </ul>
+                              </ul>
+                         </li>
+                         <li class="">
+                            <a class="has-arrow" href="/" aria-expanded="false">
+                                   <span class="mini-click-non">@lang('home.sectioncontents')</span>
+                                </a>
+                            <ul class="submenu-angle collapse" aria-expanded="true" style="height: 0px;">
+                                @foreach (auth()->user()->group->subject as $subject)
+                                    <li style="text-align: center;"><a title="" href="/mysectioncontent/{{$subject->id}}"><span class="mini-sub-pro">{{$subject->name}}</span></a></li>
+                                @endforeach
+                            </ul>
                          </li>
                         @endif
                         <li>
@@ -355,6 +368,9 @@
                                             <a title="@lang('home.exams')" href="/exams" aria-expanded="false"> @lang('home.exams')</a>
                                         </li>
                                         <li>
+                                            <a title="@lang('home.sectionexams')" href="/sectionexams" aria-expanded="false"> @lang('home.sectionexams')</a>
+                                        </li>
+                                        <li>
                                              <a title="@lang('home.myresults')" href="/results" aria-expanded="false"> @lang('home.myresults')</a>
                                         </li>
                                         <li>
@@ -369,10 +385,20 @@
                                                     @php
                                                       $name=__('home.nametr');
                                                     @endphp
-                                                    @foreach (auth()->user()->student_details->studentclass->subject as $item)
-                                                      <li style="text-align: center;"><a title="" href="/mysubjectcontent/{{$item->id}}"><span class="mini-sub-pro">{{$item->$name}}</span></a></li>
+                                                    @foreach (auth()->user()->group->subject as $subject)
+                                                      <li style="text-align: center;"><a title="" href="/mysubjectcontent/{{$subject->id}}"><span class="mini-sub-pro">{{$subject->name}}</span></a></li>
                                                     @endforeach
                                                 </ul>
+                                         </li>
+                                         <li class="">
+                                            <a class="has-arrow" href="/" aria-expanded="false">
+                                                   <span class="mini-click-non">@lang('home.sectioncontents')</span>
+                                                </a>
+                                            <ul class="submenu-angle collapse" aria-expanded="true" style="height: 0px;">
+                                                @foreach (auth()->user()->group->subject as $subject)
+                                                    <li style="text-align: center;"><a title="" href="/mysectioncontent/{{$subject->id}}"><span class="mini-sub-pro">{{$subject->name}}</span></a></li>
+                                                @endforeach
+                                            </ul>
                                          </li>
                                         @endif
                                         <li>
