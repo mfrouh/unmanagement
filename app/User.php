@@ -64,5 +64,17 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\content');
     }
+    public function usersection()
+    {
+        return $this->hasOne('App\usersection');
+    }
+    public function group()
+    {
+        return $this->belongsTo('App\group');
+    }
+    public function sectiongroup()
+    {
+        return $this->belongsTo('App\sectiongroup');
+    }
 
 }

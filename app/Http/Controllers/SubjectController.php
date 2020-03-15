@@ -57,12 +57,12 @@ class SubjectController extends Controller
           $numberofsection=group::where('id',$request->group_id)->first();
           for ($i=1; $i <= $numberofsection->countofsection ; $i++) {
               $section=new section();
-              $section->name=$request->name.$i;
+              $section->name=$request->name.'  sec'.$i;
               $arr=array();
               $arr=$request->teacherassistant;
               $rand=array_rand($request->teacherassistant,1);
               $section->user_id=$arr[$rand];
-              $sectiongroup=sectiongroup::where('group_id',$request->group_id)->where('name',$i)->first();
+              $sectiongroup=sectiongroup::where('group_id',$request->group_id)->where('name','sec'.$i.$subject->group->name)->first();
               $section->sectiongroup_id=$sectiongroup->id;
               $section->subject_id=$subject->id;
               $section->save();
@@ -117,12 +117,12 @@ class SubjectController extends Controller
           $section=section::where('subject_id',$subject->id)->delete();
           for ($i=1; $i <=$numberofsection->countofsection ; $i++) {
               $section=new section();
-              $section->name=$request->name.$i;
+              $section->name=$request->name.'  sec'.$i;
               $arr=array();
               $arr=$request->teacherassistant;
               $rand=array_rand($request->teacherassistant,1);
               $section->user_id=$arr[$rand];
-              $sectiongroup=sectiongroup::where('group_id',$request->group_id)->where('name',$i)->first();
+              $sectiongroup=sectiongroup::where('group_id',$request->group_id)->where('name','sec'.$i.$subject->group->name)->first();
               $section->sectiongroup_id=$sectiongroup->id;
               $section->subject_id=$subject->id;
               $section->save();

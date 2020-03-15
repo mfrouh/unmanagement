@@ -54,7 +54,7 @@ class GroupController extends Controller
         $group->save();
         for ($i=1; $i <=$request->countofsection ; $i++) {
             $sectiongroup=new sectiongroup();
-            $sectiongroup->name=$request->name.$i;
+            $sectiongroup->name=$request->name.'  sec'.$i;
             $sectiongroup->group_id=$group->id;
             $sectiongroup->save();
         }

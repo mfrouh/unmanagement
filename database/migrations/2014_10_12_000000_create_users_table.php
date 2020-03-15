@@ -20,6 +20,10 @@ class CreateUsersTable extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->enum('lang',['ar','en'])->default('en');
+            $table->unsignedbigInteger('group_id')->nullable();
+            $table->foreign('group_id')->references('id')->on('groups')->onDelete('CASCADE')->onUpdate('CASCADE');
+            $table->unsignedbigInteger('sectiongroup_id')->nullable();
+            $table->foreign('sectiongroup_id')->references('id')->on('sectiongroups')->onDelete('CASCADE')->onUpdate('CASCADE');
             $table->string('image')->default('1.png');
             $table->enum('role',['admin','student','teacherassistant','teacher']);
             $table->string('phone_number');

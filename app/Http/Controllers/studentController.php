@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\User;
+use App\usersection;
 use Illuminate\Http\Request;
 
 class studentController extends Controller
@@ -57,6 +58,10 @@ class studentController extends Controller
           $user->gender=$request->gender;
           $user->password=bcrypt($request->password);
           $user->save();
+          $usersection= new usersection();
+          $usersection->sectiongroup_id=$request->sectiongroup_id;
+          $usersection->user_id=$user->id;
+          $usersection->save();
           return redirect('/student');
 
     }
@@ -112,6 +117,10 @@ class studentController extends Controller
           $user->gender=$request->gender;
           $user->password=bcrypt($request->password);
           $user->save();
+          $usersection=usersection::where('user_id',$user->id)->first();
+          $usersection->sectiongroup_id=$request->sectiongroup_id;
+          $usersection->user_id=$user->id;
+          $usersection->save();
           return redirect('/student');
     }
 

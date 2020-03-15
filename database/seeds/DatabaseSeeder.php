@@ -53,6 +53,7 @@ class DatabaseSeeder extends Seeder
                 'date_of_birth'=>'2001-10-10',
             ]);
          }
+
          App\parentgroup::create([
             'name'=>'public',
          ]);
@@ -81,7 +82,7 @@ class DatabaseSeeder extends Seeder
          ]);
          for ($i=1; $i <=13 ; $i++) {
             App\sectiongroup::create([
-                'name'=>$i.'p11',
+                'name'=>'sec'.$i.'p11',
                 'group_id'=>1,
              ]);
          }
@@ -101,7 +102,7 @@ class DatabaseSeeder extends Seeder
          ]);
          for ($i=1; $i <=13 ; $i++) {
             App\sectiongroup::create([
-                'name'=>$i.'p12',
+                'name'=>'sec'.$i.'p12',
                 'group_id'=>2,
              ]);
          }
@@ -121,7 +122,7 @@ class DatabaseSeeder extends Seeder
          ]);
          for ($i=1; $i <=13 ; $i++) {
             App\sectiongroup::create([
-                'name'=>$i.'p21',
+                'name'=>'sec'.$i.'p21',
                 'group_id'=>3,
              ]);
          }
@@ -141,7 +142,7 @@ class DatabaseSeeder extends Seeder
          ]);
          for ($i=1; $i <=13 ; $i++) {
             App\sectiongroup::create([
-                'name'=>$i.'p22',
+                'name'=>'sec'.$i.'p22',
                 'group_id'=>4,
              ]);
          }
@@ -161,7 +162,7 @@ class DatabaseSeeder extends Seeder
          ]);
          for ($i=1; $i <=6 ; $i++) {
             App\sectiongroup::create([
-                'name'=>$i.'it3',
+                'name'=>'sec'.$i.'it3',
                 'group_id'=>5,
              ]);
          }
@@ -181,7 +182,7 @@ class DatabaseSeeder extends Seeder
          ]);
          for ($i=1; $i <=6 ; $i++) {
             App\sectiongroup::create([
-                'name'=>$i.'it4',
+                'name'=>'sec'.$i.'it4',
                 'group_id'=>6,
              ]);
          }
@@ -201,7 +202,7 @@ class DatabaseSeeder extends Seeder
          ]);
          for ($i=1; $i <=6 ; $i++) {
             App\sectiongroup::create([
-                'name'=>$i.'is3',
+                'name'=>'sec'.$i.'is3',
                 'group_id'=>7,
              ]);
          }
@@ -221,7 +222,7 @@ class DatabaseSeeder extends Seeder
          ]);
          for ($i=1; $i <=6 ; $i++) {
             App\sectiongroup::create([
-                'name'=>$i.'is4',
+                'name'=>'sec'.$i.'is4',
                 'group_id'=>8,
              ]);
          }
@@ -241,7 +242,7 @@ class DatabaseSeeder extends Seeder
          ]);
          for ($i=1; $i <=6 ; $i++) {
             App\sectiongroup::create([
-                'name'=>$i.'cs3',
+                'name'=>'sec'.$i.'cs3',
                 'group_id'=>9,
              ]);
          }
@@ -261,9 +262,22 @@ class DatabaseSeeder extends Seeder
          ]);
          for ($i=1; $i <=6 ; $i++) {
             App\sectiongroup::create([
-                'name'=>$i.'cs4',
+                'name'=>'sec'.$i.'cs4',
                 'group_id'=>10,
              ]);
+         }
+         for ($i=33; $i <= 599 ; $i++) {
+            App\User::create([
+                'name'=>'student'.$i,
+                'email'=>$i.'student@student.com',
+                'password'=>bcrypt('12345678'),
+                'role'=>'student',
+                'address'=>'المطرية',
+                'gender' =>'male',
+                'phone_number' =>'012'.rand(00000000,99999999),
+                'date_of_birth'=>'2001-10-10',
+                'group_id'=>App\group::all()->random()->id,
+            ]);
          }
         // factory(App\User::class, 10)->create();
         // factory(App\parentgroup::class, 5)->create();
