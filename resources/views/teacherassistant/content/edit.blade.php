@@ -38,7 +38,7 @@
                                 <select name="sectiongroup[]" class="form-control" multiple>
 
                                     @foreach (auth()->user()->section as $section)
-                                      <option value="{{$section->id}}" >{{$section->sectiongroup->name}}</option>
+                                      <option value="{{$section->sectiongroup->id}}" >{{$section->sectiongroup->name}}</option>
                                     @endforeach
                                 </select>
                               </div>
